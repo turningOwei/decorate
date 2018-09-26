@@ -26,6 +26,8 @@ public interface ConstructionTypeMapper {
      */
     List<ConstructionType>  selectAll();
 
+    List<ConstructionType>  selectAllRelateType();
+
     int updateByPrimaryKeySelective(ConstructionType record);
 
     int updateByPrimaryKey(ConstructionType record);

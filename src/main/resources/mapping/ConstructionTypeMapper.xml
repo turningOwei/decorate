@@ -10,10 +10,19 @@
     <result column="operate_id" property="operateId" jdbcType="BIGINT" />
     <result column="memo" property="memo" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="relateConstructionType" extends="BaseResultMap" type="com.decorate.model.ConstructionType">
+    <association property="constructionProjectList" column="id" select="com.decorate.mapper.ConstructionProjectMapper.selectByTypeId"></association>
+  </resultMap>
   <sql id="Base_Column_List" >
     id, name, create_time, update_time, invalid, operate_id, memo
   </sql>
   <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_construction_type
+  </select>
+
+  <select id="selectAllRelateType" resultMap="relateConstructionType">
     select
     <include refid="Base_Column_List" />
     from t_construction_type

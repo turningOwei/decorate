@@ -24,6 +24,12 @@
     from t_construction_project
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByTypeId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from t_construction_project
+    where construction_type_id = #{constructionTypeId,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_construction_project
     where id = #{id,jdbcType=BIGINT}

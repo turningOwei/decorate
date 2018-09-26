@@ -1,6 +1,7 @@
 package com.decorate.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class ConstructionType {
     private Long id;
@@ -16,6 +17,8 @@ public class ConstructionType {
     private Long operateId;
 
     private String memo;
+
+    private List<ConstructionProject> constructionProjectList;
 
     public Long getId() {
         return id;
@@ -71,5 +74,13 @@ public class ConstructionType {
 
     public void setMemo(String memo) {
         this.memo = memo == null ? null : memo.trim();
+    }
+
+    public List<ConstructionProject> getConstructionProjectList() {
+        return constructionProjectList;
+    }
+
+    public void setConstructionProjectList(List<ConstructionProject> constructionProjectList) {
+        this.constructionProjectList = constructionProjectList;
     }
 }

@@ -49,4 +49,11 @@ public class DecorateApplicationTests {
 		System.out.println(gson.toJson(list));
 	}
 
+	@Test
+	public void test(){
+		List<ConstructionType> list = constructionTypeMapper.selectAllRelateType();
+		Gson gson = new GsonBuilder().create();
+		System.out.println(gson.toJson(list));
+	}
+
 }
