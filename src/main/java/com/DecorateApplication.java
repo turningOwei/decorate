@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 /**@MapperScan(basePackages = {"com.decorate.mapper"})
 @ComponentScan(basePackages = {"com.decorate.*"})
 @EntityScan("com.decorate.model")*/
+@MapperScan("com.decorate.mapper")
 public class DecorateApplication {
 
 	public static void main(String[] args) {
