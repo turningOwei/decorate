@@ -15,12 +15,12 @@ import java.util.List;
  * @created 2018/9/26 19:51
  * @since v1.0.0
  */
-@RestController("/constructionType")
+@RestController
 public class ConstructionTypeController {
     @Resource
     private ConstructionTypeService constructionTypeService;
 
-    @RequestMapping("/selectAll")
+    @RequestMapping("/constructionType/selectAll")
     public List<ConstructionType> selectAll(){
         List<ConstructionType> list = constructionTypeService.selectAll();
         return list;
