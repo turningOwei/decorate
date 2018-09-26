@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.decorate.mapper.ConstructionProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.decorate.model.ConstructionProject" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="construction_type_id" property="constructionTypeId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="unit_price" property="unitPrice" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="invalid" property="invalid" jdbcType="BIT" />
+    <result column="operate_id" property="operateId" jdbcType="BIGINT" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, construction_type_id, name, unit, unit_price, remark, create_time, update_time, 
+    invalid, operate_id, memo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_construction_project
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_construction_project
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.decorate.model.ConstructionProject" >
+    insert into t_construction_project (id, construction_type_id, name, 
+      unit, unit_price, remark, 
+      create_time, update_time, invalid, 
+      operate_id, memo)
+    values (#{id,jdbcType=BIGINT}, #{constructionTypeId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{unitPrice,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{invalid,jdbcType=BIT}, 
+      #{operateId,jdbcType=BIGINT}, #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.decorate.model.ConstructionProject" >
+    insert into t_construction_project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="constructionTypeId != null" >
+        construction_type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="operateId != null" >
+        operate_id,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="constructionTypeId != null" >
+        #{constructionTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=BIT},
+      </if>
+      <if test="operateId != null" >
+        #{operateId,jdbcType=BIGINT},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.decorate.model.ConstructionProject" >
+    update t_construction_project
+    <set >
+      <if test="constructionTypeId != null" >
+        construction_type_id = #{constructionTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=BIT},
+      </if>
+      <if test="operateId != null" >
+        operate_id = #{operateId,jdbcType=BIGINT},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.decorate.model.ConstructionProject" >
+    update t_construction_project
+    set construction_type_id = #{constructionTypeId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      invalid = #{invalid,jdbcType=BIT},
+      operate_id = #{operateId,jdbcType=BIGINT},
+      memo = #{memo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
