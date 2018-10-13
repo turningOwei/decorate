@@ -11,7 +11,7 @@
     <result column="memo" property="memo" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="relateConstructionType" extends="BaseResultMap" type="com.decorate.model.ConstructionType">
-    <association property="constructionProjectList" column="id" select="com.decorate.mapper.ConstructionProjectMapper.selectByTypeId"></association>
+    <association property="constructionProjectList" fetchType="lazy" column="id" select="com.decorate.mapper.ConstructionProjectMapper.selectByTypeId"></association>
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, create_time, update_time, invalid, operate_id, memo
