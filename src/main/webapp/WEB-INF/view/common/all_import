@@ -1,0 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!-- 系统变量配置 -->
+<%@ include file="/WEB-INF/view/common/sysVariables"%>
+<!-- extjs 基础 -->
+<%@ include file="/WEB-INF/view/common/extInclude"%>
+<!-- extjs扩展包 -->
+<%@ include file="/WEB-INF/view/common/extuxInclude"%>
+<!-- 系统模块加载路径配置 -->
+<script type="text/javascript" src="${staticPath}/ext_js/loadConfig.js?dc_='<%=new java.util.Date().getTime()%>'"></script>
+<script type="text/javascript" src="${staticPath}/js/app/AppWithoutLogIn.js?dc_='<%=new java.util.Date().getTime()%>'"></script>

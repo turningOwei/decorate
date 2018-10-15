@@ -1,9 +1,21 @@
 server:
-  port: 8090
+  port: 8080
   tomcat:
     uri-encoding: UTF-8
+ # servlet: 好像没什么用,配置后请求路径正确却无法访问
+ #   #修改默认映射路径
+ #   path: **.do
 
 spring:
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /WEB-INF/view/
+    static-path-pattern: /static/
+     #表示所有的访问都经过静态资源路径
+    #static-path-pattern: /**
+ #resources:
+ #  static-locations: classpath:/static/**
   datasource:
       url: jdbc:mysql://localhost:3306/decorate?characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&autoReconnect=true&useSSL=false
       username: root
@@ -25,6 +37,10 @@ spring:
         test-on-return: false
         pool-prepared-statements: true
         max-open-prepared-statements: 20
+ # resources:
+ #   static-locations: classpath:/WEB-INF/static
+
+
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.decorate.model
