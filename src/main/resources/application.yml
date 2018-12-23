@@ -20,6 +20,7 @@ spring:
       url: jdbc:mysql://localhost:3306/decorate?characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&autoReconnect=true&useSSL=false
       username: root
       password: root
+      #com.mysql.jdbc.Driver
       driver-class-name: com.mysql.jdbc.Driver
       platform: mysql
       type: com.alibaba.druid.pool.DruidDataSource
@@ -54,6 +55,9 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+logging:
+  level:
+    com.decorate.mapper : debug
 #logging:
  # level: debug
   #config: classpath:logback.xml

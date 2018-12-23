@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.decorate.mapper.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.decorate.model.SysResource" >
+    <id column="db_id" property="dbId" jdbcType="BIGINT" />
+    <result column="corp_id" property="corpId" jdbcType="INTEGER" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
+    <result column="icon_cls" property="iconCls" jdbcType="VARCHAR" />
+    <result column="is_leaf" property="isLeaf" jdbcType="INTEGER" />
+    <result column="js_class_name" property="jsClassName" jdbcType="VARCHAR" />
+    <result column="role_key" property="roleKey" jdbcType="VARCHAR" />
+    <result column="oid" property="oid" jdbcType="BIGINT" />
+    <result column="is_valid" property="isValid" jdbcType="BIT" />
+    <result column="valid_status" property="validStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    db_id, corp_id, text, parent_id, name, menu_url, menu_type, icon_cls, is_leaf, js_class_name, 
+    role_key, oid, is_valid, valid_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_resource
+    where db_id = #{dbId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_resource
+    where db_id = #{dbId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.decorate.model.SysResource" >
+    insert into sys_resource (db_id, corp_id, text, 
+      parent_id, name, menu_url, 
+      menu_type, icon_cls, is_leaf, 
+      js_class_name, role_key, oid, 
+      is_valid, valid_status)
+    values (#{dbId,jdbcType=BIGINT}, #{corpId,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
+      #{menuType,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{isLeaf,jdbcType=INTEGER}, 
+      #{jsClassName,jdbcType=VARCHAR}, #{roleKey,jdbcType=VARCHAR}, #{oid,jdbcType=BIGINT}, 
+      #{isValid,jdbcType=BIT}, #{validStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.decorate.model.SysResource" >
+    insert into sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dbId != null" >
+        db_id,
+      </if>
+      <if test="corpId != null" >
+        corp_id,
+      </if>
+      <if test="text != null" >
+        text,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="menuUrl != null" >
+        menu_url,
+      </if>
+      <if test="menuType != null" >
+        menu_type,
+      </if>
+      <if test="iconCls != null" >
+        icon_cls,
+      </if>
+      <if test="isLeaf != null" >
+        is_leaf,
+      </if>
+      <if test="jsClassName != null" >
+        js_class_name,
+      </if>
+      <if test="roleKey != null" >
+        role_key,
+      </if>
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="validStatus != null" >
+        valid_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dbId != null" >
+        #{dbId,jdbcType=BIGINT},
+      </if>
+      <if test="corpId != null" >
+        #{corpId,jdbcType=INTEGER},
+      </if>
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null" >
+        #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null" >
+        #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null" >
+        #{isLeaf,jdbcType=INTEGER},
+      </if>
+      <if test="jsClassName != null" >
+        #{jsClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleKey != null" >
+        #{roleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="oid != null" >
+        #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=BIT},
+      </if>
+      <if test="validStatus != null" >
+        #{validStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.decorate.model.SysResource" >
+    update sys_resource
+    <set >
+      <if test="corpId != null" >
+        corp_id = #{corpId,jdbcType=INTEGER},
+      </if>
+      <if test="text != null" >
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null" >
+        menu_type = #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null" >
+        icon_cls = #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null" >
+        is_leaf = #{isLeaf,jdbcType=INTEGER},
+      </if>
+      <if test="jsClassName != null" >
+        js_class_name = #{jsClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleKey != null" >
+        role_key = #{roleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="oid != null" >
+        oid = #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=BIT},
+      </if>
+      <if test="validStatus != null" >
+        valid_status = #{validStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where db_id = #{dbId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.decorate.model.SysResource" >
+    update sys_resource
+    set corp_id = #{corpId,jdbcType=INTEGER},
+      text = #{text,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      menu_type = #{menuType,jdbcType=VARCHAR},
+      icon_cls = #{iconCls,jdbcType=VARCHAR},
+      is_leaf = #{isLeaf,jdbcType=INTEGER},
+      js_class_name = #{jsClassName,jdbcType=VARCHAR},
+      role_key = #{roleKey,jdbcType=VARCHAR},
+      oid = #{oid,jdbcType=BIGINT},
+      is_valid = #{isValid,jdbcType=BIT},
+      valid_status = #{validStatus,jdbcType=VARCHAR}
+    where db_id = #{dbId,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_resource WHERE is_valid = 1
+  </select>
+  <select id="getRootNode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_resource WHERE oid = 1
+  </select>
+</mapper>
