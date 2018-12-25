@@ -1,7 +1,9 @@
 package com.decorate.service;
 
 import com.decorate.exception.ServiceException;
-import com.decorate.model.ConstructionProject;
+import com.decorate.model.Item;
+
+import java.util.List;
 
 /**
  * 描述:
@@ -10,6 +12,6 @@ import com.decorate.model.ConstructionProject;
  * @created 2018/9/26 19:32
  * @since v1.0.0
  */
-public interface ConstructionProjectService{
-    void saveOrUpdate(ConstructionProject entity)throws ServiceException;
+public interface ItemService extends BaseService<Item>{
+    List<Item> selectByItemTypeId(Long itemTypeId);
 }

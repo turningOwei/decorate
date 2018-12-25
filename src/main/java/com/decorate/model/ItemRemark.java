@@ -1,13 +1,15 @@
 package com.decorate.model;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-public class ConstructionType implements Serializable{
+public class ItemRemark extends BaseEntity {
     private Long id;
 
+    private Long itemId;
+
     private String name;
+
+    private String text;
 
     private Date createTime;
 
@@ -19,14 +21,17 @@ public class ConstructionType implements Serializable{
 
     private String memo;
 
-    private List<ConstructionProject> constructionProjectList;
+    private String itemName;
 
-    public Long getId() {
-        return id;
+    private Item item;
+
+
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
     public String getName() {
@@ -35,6 +40,14 @@ public class ConstructionType implements Serializable{
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text == null ? null : text.trim();
     }
 
     public Date getCreateTime() {
@@ -77,11 +90,19 @@ public class ConstructionType implements Serializable{
         this.memo = memo == null ? null : memo.trim();
     }
 
-    public List<ConstructionProject> getConstructionProjectList() {
-        return constructionProjectList;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setConstructionProjectList(List<ConstructionProject> constructionProjectList) {
-        this.constructionProjectList = constructionProjectList;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }
