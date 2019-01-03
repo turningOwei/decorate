@@ -3,6 +3,7 @@ package com.decorate.service.impl;
 import com.decorate.exception.ServiceException;
 import com.decorate.mapper.ItemRemarkMapper;
 import com.decorate.model.ItemRemark;
+import com.decorate.model.ItemRemarkPo;
 import com.decorate.service.ItemRemarkService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -27,6 +28,11 @@ public class ItemRemarkServiceImpl implements ItemRemarkService {
     public List<ItemRemark> selectAll() {
         return itemRemarkMapper.selectAll();
     }
+    @Override
+    public List<ItemRemarkPo> selectAllJoinItemType(String itemTypeName,String itemName,String name) {
+        return itemRemarkMapper.selectAllJoinItemType(itemTypeName);
+    }
+
 
     @Override
     public void saveOrUpdate(ItemRemark entity) throws ServiceException {

@@ -3,6 +3,9 @@ package com.decorate.model;
 import lombok.Data;
 
 import java.util.List;
+/**
+ * @author turningOwei
+ */
 @Data
 public class SysResource extends BaseEntity {
     private Long dbId;
