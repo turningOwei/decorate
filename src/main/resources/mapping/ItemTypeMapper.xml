@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.decorate.mapper.ConstructionTypeMapper" >
-  <resultMap id="BaseResultMap" type="com.decorate.model.ConstructionType" >
+<mapper namespace="com.decorate.mapper.ItemTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.decorate.model.ItemType" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -10,8 +10,8 @@
     <result column="operate_id" property="operateId" jdbcType="BIGINT" />
     <result column="memo" property="memo" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="relateConstructionType" extends="BaseResultMap" type="com.decorate.model.ConstructionType">
-    <association property="constructionProjectList" fetchType="lazy" column="id" select="com.decorate.mapper.ConstructionProjectMapper.selectByTypeId"></association>
+  <resultMap id="relateItemType" extends="BaseResultMap" type="com.decorate.model.ItemType">
+    <association property="itemList" fetchType="lazy" column="id" select="com.decorate.mapper.ItemMapper.selectByTypeId"></association>
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, create_time, update_time, invalid, operate_id, memo
@@ -19,34 +19,40 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_construction_type
+    from t_item_type WHERE invalid = 1
   </select>
 
-  <select id="selectAllRelateType" resultMap="relateConstructionType">
+  <select id="selectAllRelateType" resultMap="relateItemType">
     select
     <include refid="Base_Column_List" />
-    from t_construction_type
+    from t_item_type
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from t_construction_type
+    from t_item_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectNameByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    name
+    from t_item_type
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from t_construction_type
+    delete from t_item_type
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.decorate.model.ConstructionType" >
-    insert into t_construction_type (id, name, create_time, 
+  <insert id="insert" parameterType="com.decorate.model.ItemType" >
+    insert into t_item_type (id, name, create_time, 
       update_time, invalid, operate_id, 
       memo)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{invalid,jdbcType=BIT}, #{operateId,jdbcType=BIGINT}, 
       #{memo,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.decorate.model.ConstructionType" >
-    insert into t_construction_type
+  <insert id="insertSelective" parameterType="com.decorate.model.ItemType" >
+    insert into t_item_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -94,8 +100,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.decorate.model.ConstructionType" >
-    update t_construction_type
+  <update id="updateByPrimaryKeySelective" parameterType="com.decorate.model.ItemType" >
+    update t_item_type
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -118,8 +124,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.decorate.model.ConstructionType" >
-    update t_construction_type
+  <update id="updateByPrimaryKey" parameterType="com.decorate.model.ItemType" >
+    update t_item_type
     set name = #{name,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
