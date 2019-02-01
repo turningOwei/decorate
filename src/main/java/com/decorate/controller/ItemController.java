@@ -87,4 +87,10 @@ public class ItemController {
         return new ExtJsonForm(true,entity);
     }
 
+    @RequestMapping("/item/deleteByPrimaryKey.do")
+    @ResponseBody
+    public ExtJsonForm deleteByPrimaryKey(Long id){
+        itemService.deleteByPrimaryKey(id);
+        return new ExtJsonForm(true,"删除成功");
+    }
 }

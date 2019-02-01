@@ -99,4 +99,11 @@ public class ItemTypeController {
         return "test";
 
     }
+
+    @RequestMapping("/itemType/deleteByPrimaryKey.do")
+    @ResponseBody
+    public ExtJsonForm deleteByPrimaryKey(Long id){
+        itemTypeService.deleteByPrimaryKey(id);
+        return new ExtJsonForm(true,"删除成功");
+    }
 }

@@ -31,7 +31,7 @@ public class ItemRemarkController {
     @Resource
     private ItemRemarkService itemRemarkService;
     private Gson gson = new GsonBuilder().create();
-    @RequestMapping("/itemremark/selectAll.do")
+    @RequestMapping("/itemRemark/selectAll.do")
     @ResponseBody
     public ExtGrid selectAll(PageParam<ItemRemarkPo> pageParam,
                              String itemTypeName,String itemName,String remarkName){
@@ -42,7 +42,7 @@ public class ItemRemarkController {
         return result;
     }
 
-    @RequestMapping("/itemremark/selectByItemId.do")
+    @RequestMapping("/itemRemark/selectByItemId.do")
     @ResponseBody
     public ExtGrid selectByItemId(PageParam<ItemRemark> pageParam,Long itemTypeId){
         Assert.notNull(itemTypeId,"项目类型id不能为空");
@@ -51,7 +51,7 @@ public class ItemRemarkController {
         return new ExtGrid(list,10,true);
     }
 
-    @RequestMapping("/itemremark/save.do")
+    @RequestMapping("/itemRemark/save.do")
     @ResponseBody
     public ExtJsonForm save(ItemRemark entity){
         try {
@@ -63,7 +63,7 @@ public class ItemRemarkController {
         return new ExtJsonForm(true,entity);
     }
 
-    @RequestMapping("/itemremark/update.do")
+    @RequestMapping("/itemRemark/update.do")
     @ResponseBody
     public ExtJsonForm update(ItemRemark entity){
         try {
@@ -75,17 +75,24 @@ public class ItemRemarkController {
         return new ExtJsonForm(true,entity);
     }
 
-    @RequestMapping("/itemremark/selectByPrimaryKey.do")
+    @RequestMapping("/itemRemark/selectByPrimaryKey.do")
     @ResponseBody
     public ExtJsonForm selectByPrimaryKey(ItemRemark itemRemark){
         ItemRemark entity= itemRemarkService.selectByPrimaryKey(itemRemark.getId());
         return new ExtJsonForm(true,entity);
     }
 
-    @RequestMapping("/itemremark/selectRelatedByPrimaryKey.do")
+    @RequestMapping("/itemRemark/selectRelatedByPrimaryKey.do")
     @ResponseBody
     public ExtJsonForm selectRelatedByPrimaryKey(ItemRemark itemRemark){
         ItemRemarkPo entity= itemRemarkService.selectRelatedByPrimaryKey(itemRemark.getId());
         return new ExtJsonForm(true,entity);
+    }
+
+    @RequestMapping("/itemRemark/deleteByPrimaryKey.do")
+    @ResponseBody
+    public ExtJsonForm deleteByPrimaryKey(Long id){
+        itemRemarkService.deleteByPrimaryKey(id);
+        return new ExtJsonForm(true,"删除成功");
     }
 }
