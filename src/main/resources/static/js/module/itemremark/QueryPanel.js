@@ -25,7 +25,8 @@ Ext.define('Module.itemremark.QueryPanel', {
             'updateTime',
             'invalid',
             'operateId',
-            'memo'
+            'memo',
+            'orderFlag'
         ];
     },
     buildColumns	: function() {
@@ -33,7 +34,8 @@ Ext.define('Module.itemremark.QueryPanel', {
             {text : '项目类型名称',dataIndex : 'itemTypeName',width:150},
             {text : '项目名称',dataIndex : 'itemName',width:150},
             {text : '备注名称',dataIndex : 'name',width:150},
-            {text : '备注文本',dataIndex : 'text',width:400}
+            {text : '备注文本',dataIndex : 'text',width:400},
+            {text : '排序',dataIndex : 'orderFlag',width:50}
         ];
     },
     buildTbar       : function(){
@@ -67,7 +69,7 @@ Ext.define('Module.itemremark.QueryPanel', {
                     listeners   : {
                         afterrender : function( thisCmp, eOpts ){
                             var cfg = {
-                                url : SysConfig.ctx + '/itemremark/selectByPrimaryKey.do',
+                                url : SysConfig.ctx + '/itemremark/selectRelatedByPrimaryKey.do',
                                 params  : params
                             };
 

@@ -21,12 +21,14 @@ Ext.define('Module.itemtype.QueryPanel', {
             'updateTime',
             'invalid',
             'operateId',
-            'memo'
+            'memo',
+            'orderFlag'
         ];
     },
     buildColumns	: function() {
         return [
             {text : '项目类型名称',dataIndex : 'name',width:200},
+            {text : '排序',dataIndex : 'orderFlag',width:50}
         ];
     },
     buildTbar       : function(){

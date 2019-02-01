@@ -10,6 +10,12 @@ Ext.define('Module.itemtype.AddOrEditForm', {
         name: 'name',
         allowBlank: false
     },{
+        fieldLabel: '排序',
+        name: 'orderFlag',
+        xtype:'numberfield',
+        minValue: 1,
+        allowBlank: false
+    },{
         fieldLabel: 'id',
         hidden:true,
         name: 'id'

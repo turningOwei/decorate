@@ -54,6 +54,12 @@ Ext.define('Module.itemremark.AddOrEditForm', {
         xtype:'textarea',
         height:100
     },{
+        fieldLabel: '排序',
+        name: 'orderFlag',
+        xtype:'numberfield',
+        minValue: 1,
+        allowBlank: false
+    },{
         fieldLabel: 'id',
         hidden:true,
         name: 'id'

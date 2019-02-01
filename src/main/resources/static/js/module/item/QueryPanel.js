@@ -24,7 +24,8 @@ Ext.define('Module.item.QueryPanel', {
             'updateTime',
             'invalid',
             'operateId',
-            'memo'
+            'memo',
+            'orderFlag'
         ];
     },
     buildColumns	: function() {
@@ -35,6 +36,7 @@ Ext.define('Module.item.QueryPanel', {
             {text : '项目名称',dataIndex : 'name',width:200},
             {text : '单位',dataIndex : 'unit',width:200},
             {text : '单价',dataIndex : 'unitPrice',width:200},
+            {text : '排序',dataIndex : 'orderFlag',width:50}
         ];
     },
     buildTbar       : function(){
