@@ -18,7 +18,7 @@ public class Item extends BaseEntity implements Serializable{
 
     private String unit;
 
-    private Byte unitPrice;
+    private Integer unitPrice;
 
     private String remark;
 
@@ -35,5 +35,7 @@ public class Item extends BaseEntity implements Serializable{
     private ItemType itemType;
 
     private String itemTypeName;
+
+    private Integer orderFlag;
 
 }

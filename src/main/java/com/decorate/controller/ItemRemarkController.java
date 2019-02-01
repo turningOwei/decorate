@@ -35,7 +35,6 @@ public class ItemRemarkController {
     @ResponseBody
     public ExtGrid selectAll(PageParam<ItemRemarkPo> pageParam,
                              String itemTypeName,String itemName,String remarkName){
-        //List<ItemRemark> list = itemRemarkService.selectAll();
         List<ItemRemarkPo> list = itemRemarkService
                 .selectAllJoinItemType(itemTypeName,itemName,remarkName);
         pageParam.setList(list);
@@ -83,4 +82,10 @@ public class ItemRemarkController {
         return new ExtJsonForm(true,entity);
     }
 
+    @RequestMapping("/itemremark/selectRelatedByPrimaryKey.do")
+    @ResponseBody
+    public ExtJsonForm selectRelatedByPrimaryKey(ItemRemark itemRemark){
+        ItemRemarkPo entity= itemRemarkService.selectRelatedByPrimaryKey(itemRemark.getId());
+        return new ExtJsonForm(true,entity);
+    }
 }

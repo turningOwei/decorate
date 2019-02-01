@@ -1,6 +1,7 @@
 package com.decorate.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface ItemMapper<T> extends DecorateMapper{
 
     List<T> selectByTypeId(Long itemTypeId);
 
+    List<T> selectAllByItemTypeId(@Param("itemTypeId") Long itemTypeId);
 }

@@ -29,5 +29,5 @@ public class ItemRemark extends BaseEntity {
 
     private Item item;
 
-
+    private Integer orderFlag;
 }

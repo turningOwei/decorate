@@ -31,7 +31,7 @@ public class ItemController {
     private Gson gson = new GsonBuilder().create();
     @RequestMapping("/item/selectAll.do")
     @ResponseBody
-    public ExtGrid selectAll(PageParam<Item> pageParam){
+    public ExtGrid selectAll(PageParam<Item> pageParam,Long itemTypeId){
         List<Item> list = itemService.selectAll();
         pageParam.setList(list);
         ExtGrid result = new ExtGrid(list, 10, true);
@@ -45,7 +45,15 @@ public class ItemController {
         Assert.notNull(itemTypeId,"项目类型id不能为空");
         List<Item> list = itemService.selectByItemTypeId(itemTypeId);
         pageParam.setList(list);
-        return new ExtGrid(list,10,true);
+        return new ExtGrid(list,50,true);
+    }
+
+    @RequestMapping("/item/selectAllByItemTypeId.do")
+    @ResponseBody
+    public ExtGrid selectAllByItemTypeId(PageParam<Item> pageParam,Long itemTypeId){
+        List<Item> list = itemService.selectAllByItemTypeId(itemTypeId);
+        pageParam.setList(list);
+        return new ExtGrid(list,50,true);
     }
 
     @RequestMapping("/item/save.do")

@@ -10,6 +10,8 @@ import lombok.Data;
  */
 @Data
 public class ItemRemarkPo extends ItemRemark {
+    private Long itemTypeId;
     private String itemTypeName;
     private String itemName;
+    private Integer orderFlag;
 }

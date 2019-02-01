@@ -12,5 +12,9 @@ import java.util.List;
 public interface ItemRemarkMapper extends DecorateMapper<ItemRemark>{
 
     List<ItemRemark> selectByItemId(Long itemId);
-    List<ItemRemarkPo> selectAllJoinItemType(@Param("itemTypeName") String itemTypeName);
+    //List<ItemRemarkPo> selectAllJoinItemType(@Param("itemTypeName") String itemTypeName);
+
+    ItemRemarkPo selectRelatedByPrimaryKey(@Param("id") Long id);
+
+    List<ItemRemarkPo> selectAllJoinItemType(String itemTypeName);
 }

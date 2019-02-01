@@ -5,11 +5,12 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 /**
  * @author turningOwei
  */
 @Data
-public class ItemType extends BaseEntity implements Serializable{
+public class ItemType extends BaseEntity implements Serializable {
 
     private String name;
 
@@ -25,5 +26,6 @@ public class ItemType extends BaseEntity implements Serializable{
 
     private List<Item> itemList;
 
+    private Integer orderFlag;
 
 }
