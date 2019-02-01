@@ -6,20 +6,21 @@
     <result column="item_type_id" property="itemTypeId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="unit" property="unit" jdbcType="VARCHAR" />
-    <result column="unit_price" property="unitPrice" jdbcType="TINYINT" />
+    <result column="unit_price" property="unitPrice" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="invalid" property="invalid" jdbcType="BIT" />
     <result column="operate_id" property="operateId" jdbcType="BIGINT" />
     <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="order_flag" property="orderFlag" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="relateItemType" extends="BaseResultMap" type="com.decorate.model.Item">
     <association property="itemType" fetchType="eager" column="item_type_id" select="com.decorate.mapper.ItemTypeMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Base_Column_List" >
     id, item_type_id, name, unit, unit_price, remark, create_time, update_time, 
-    invalid, operate_id, memo
+    invalid, operate_id, memo,order_flag
   </sql>
   <select id="selectByPrimaryKey" resultMap="relateItemType" parameterType="java.lang.Long" >
     select
@@ -36,7 +37,18 @@
   <select id="selectAll" resultMap="relateItemType" >
     select
     <include refid="Base_Column_List" />
+    from t_item order by order_flag
+  </select>
+  <select id="selectAllByItemTypeId" resultMap="relateItemType" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
     from t_item
+    <where>
+        <if test="itemTypeId!=null">
+        item_type_id=#{itemTypeId,jdbcType=BIGINT}
+      </if>
+    </where>
+    order by order_flag
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -49,9 +61,9 @@
       create_time, update_time, invalid, 
       operate_id, memo)
     values (#{id,jdbcType=BIGINT}, #{itemTypeId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{unit,jdbcType=VARCHAR}, #{unitPrice,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{unitPrice,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{invalid,jdbcType=BIT}, 
-      #{operateId,jdbcType=BIGINT}, #{memo,jdbcType=VARCHAR})
+      #{operateId,jdbcType=BIGINT}, #{memo,jdbcType=VARCHAR}), #{orderFlag,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.decorate.model.Item" >
     insert into t_item
@@ -89,6 +101,9 @@
       <if test="memo != null" >
         memo,
       </if>
+      <if test="orderFlag != null" >
+        order_flag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -104,7 +119,7 @@
         #{unit,jdbcType=VARCHAR},
       </if>
       <if test="unitPrice != null" >
-        #{unitPrice,jdbcType=TINYINT},
+        #{unitPrice,jdbcType=INTEGER},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -124,6 +139,9 @@
       <if test="memo != null" >
         #{memo,jdbcType=VARCHAR},
       </if>
+      <if test="orderFlag != null" >
+        #{orderFlag,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.decorate.model.Item" >
@@ -139,7 +157,7 @@
         unit = #{unit,jdbcType=VARCHAR},
       </if>
       <if test="unitPrice != null" >
-        unit_price = #{unitPrice,jdbcType=TINYINT},
+        unit_price = #{unitPrice,jdbcType=INTEGER},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
@@ -159,6 +177,9 @@
       <if test="memo != null" >
         memo = #{memo,jdbcType=VARCHAR},
       </if>
+      <if test="orderFlag != null" >
+        order_flag= #{orderFlag,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -167,13 +188,14 @@
     set item_type_id = #{itemTypeId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       unit = #{unit,jdbcType=VARCHAR},
-      unit_price = #{unitPrice,jdbcType=TINYINT},
+      unit_price = #{unitPrice,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       invalid = #{invalid,jdbcType=BIT},
       operate_id = #{operateId,jdbcType=BIGINT},
-      memo = #{memo,jdbcType=VARCHAR}
+      memo = #{memo,jdbcType=VARCHAR},
+      order_flag= #{orderFlag,jdbcType=INTEGER},
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

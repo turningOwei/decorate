@@ -1,171 +1,212 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.decorate.mapper.ItemRemarkMapper" >
-  <resultMap id="BaseResultMap" type="com.decorate.model.ItemRemark" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="item_id" property="itemId" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="text" property="text" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="invalid" property="invalid" jdbcType="BIT" />
-    <result column="operate_id" property="operateId" jdbcType="BIGINT" />
-    <result column="memo" property="memo" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ItemRemarkPoMap" type="com.decorate.model.ItemRemarkPo" extends="BaseResultMap">
-    <result column="item_type_name" property="itemTypeName" jdbcType="VARCHAR" />
-    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, item_id, name, text, create_time, update_time, invalid, operate_id, memo
+<mapper namespace="com.decorate.mapper.ItemRemarkMapper">
+    <resultMap id="BaseResultMap" type="com.decorate.model.ItemRemark">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="item_id" property="itemId" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="text" property="text" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="invalid" property="invalid" jdbcType="BIT"/>
+        <result column="operate_id" property="operateId" jdbcType="BIGINT"/>
+        <result column="memo" property="memo" jdbcType="VARCHAR"/>
+        <result column="order_flag" property="orderFlag" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="ItemRemarkPoMap" type="com.decorate.model.ItemRemarkPo" extends="BaseResultMap">
+        <result column="item_type_id" property="itemTypeId" jdbcType="BIGINT"/>
+        <result column="item_type_name" property="itemTypeName" jdbcType="VARCHAR"/>
+        <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, item_id, name, text, create_time, update_time, invalid, operate_id, memo,order_flag
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_item_remark
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <select id="selectByItemId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select
-    <include refid="Base_Column_List" />
-    from t_item_remark
-    where item_id = #{itemId,jdbcType=BIGINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select
-    <include refid="Base_Column_List" />
-    from t_item_remark
-  </select>
-  <select id="selectAllJoinItemType" resultMap="ItemRemarkPoMap" parameterType="java.lang.Long" >
-      select c.name        as item_type_name,
-         b.name        as item_name,
-         a.id,
-         a.item_id,
-         a.name,
-         a.text,
-         a.create_time,
-         a.update_time,
-         a.invalid,
-         a.operate_id,
-         a.memo
-    from t_item_remark a
-    left join t_item b
-      on a.item_id = b.id
-    left join t_item_type c
-      on b.item_type_id = c.id
-      <where>
-        <if test="itemTypeName">
-          <bind name="itemTypeNameLike" value="'%'+itemTypeName+'%'"/>
-          c.name like  #{itemTypeNameLike}
-        </if>
-      </where>
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_item_remark
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectByItemId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_item_remark
+        where item_id = #{itemId,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_item_remark order by order_flag
+    </select>
+    <select id="selectRelatedByPrimaryKey" resultMap="ItemRemarkPoMap" parameterType="java.lang.Long">
+        select
+        c.id as item_type_id,
+        c.name as item_type_name,
+        b.name as item_name,
+        a.id,
+        a.item_id,
+        a.name,
+        a.text,
+        a.create_time,
+        a.update_time,
+        a.invalid,
+        a.operate_id,
+        a.memo,
+        a.order_flag
+        from t_item_remark a
+        left join t_item b
+        on a.item_id = b.id
+        left join t_item_type c
+        on b.item_type_id = c.id
+        <where>
+            <if test="id!=null">
+                a.id = #{id,jdbcType=BIGINT}
+            </if>
+        </where>
+        order by a.order_flag
+    </select>
+
+    <select id="selectAllJoinItemType" resultMap="ItemRemarkPoMap" parameterType="java.lang.String">
+        select
+        c.id as item_type_id,
+        c.name as item_type_name,
+        b.name as item_name,
+        a.id,
+        a.item_id,
+        a.name,
+        a.text,
+        a.create_time,
+        a.update_time,
+        a.invalid,
+        a.operate_id,
+        a.memo,
+        a.order_flag
+        from t_item_remark a
+        left join t_item b
+        on a.item_id = b.id
+        left join t_item_type c
+        on b.item_type_id = c.id
+        <where>
+            <if test="itemTypeName!=null">
+                <bind name="itemTypeNameLike" value="'%'+itemTypeName+'%'"/>
+                c.name like #{itemTypeNameLike}
+            </if>
+        </where>
+        order by a.order_flag
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_item_remark
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.decorate.model.ItemRemark" >
+    <insert id="insert" parameterType="com.decorate.model.ItemRemark">
     insert into t_item_remark (id, item_id, name, 
       text, create_time, update_time, 
-      invalid, operate_id, memo
+      invalid, operate_id, memo,order_flag
       )
     values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{text,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{invalid,jdbcType=BIT}, #{operateId,jdbcType=BIGINT}, #{memo,jdbcType=VARCHAR}
+      #{invalid,jdbcType=BIT}, #{operateId,jdbcType=BIGINT}, #{memo,jdbcType=VARCHAR}, #{orderFlag,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.decorate.model.ItemRemark" >
-    insert into t_item_remark
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="itemId != null" >
-        item_id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="text != null" >
-        text,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="invalid != null" >
-        invalid,
-      </if>
-      <if test="operateId != null" >
-        operate_id,
-      </if>
-      <if test="memo != null" >
-        memo,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="itemId != null" >
-        #{itemId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="text != null" >
-        #{text,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="invalid != null" >
-        #{invalid,jdbcType=BIT},
-      </if>
-      <if test="operateId != null" >
-        #{operateId,jdbcType=BIGINT},
-      </if>
-      <if test="memo != null" >
-        #{memo,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.decorate.model.ItemRemark" >
-    update t_item_remark
-    <set >
-      <if test="itemId != null" >
-        item_id = #{itemId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="text != null" >
-        text = #{text,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="invalid != null" >
-        invalid = #{invalid,jdbcType=BIT},
-      </if>
-      <if test="operateId != null" >
-        operate_id = #{operateId,jdbcType=BIGINT},
-      </if>
-      <if test="memo != null" >
-        memo = #{memo,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.decorate.model.ItemRemark" >
+    <insert id="insertSelective" parameterType="com.decorate.model.ItemRemark">
+        insert into t_item_remark
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="itemId != null">
+                item_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="text != null">
+                text,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="invalid != null">
+                invalid,
+            </if>
+            <if test="operateId != null">
+                operate_id,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="orderFlag != null">
+                order_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="itemId != null">
+                #{itemId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="text != null">
+                #{text,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invalid != null">
+                #{invalid,jdbcType=BIT},
+            </if>
+            <if test="operateId != null">
+                #{operateId,jdbcType=BIGINT},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderFlag != null">
+                #{orderFlag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.decorate.model.ItemRemark">
+        update t_item_remark
+        <set>
+            <if test="itemId != null">
+                item_id = #{itemId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="text != null">
+                text = #{text,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invalid != null">
+                invalid = #{invalid,jdbcType=BIT},
+            </if>
+            <if test="operateId != null">
+                operate_id = #{operateId,jdbcType=BIGINT},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.decorate.model.ItemRemark">
     update t_item_remark
     set item_id = #{itemId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},

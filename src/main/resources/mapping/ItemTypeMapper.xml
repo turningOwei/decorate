@@ -9,23 +9,24 @@
     <result column="invalid" property="invalid" jdbcType="BIT" />
     <result column="operate_id" property="operateId" jdbcType="BIGINT" />
     <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="order_flag" property="orderFlag" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="relateItemType" extends="BaseResultMap" type="com.decorate.model.ItemType">
     <association property="itemList" fetchType="lazy" column="id" select="com.decorate.mapper.ItemMapper.selectByTypeId"></association>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, create_time, update_time, invalid, operate_id, memo
+    id, name, create_time, update_time, invalid, operate_id, memo,order_flag
   </sql>
   <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_item_type WHERE invalid = 1
+    from t_item_type WHERE invalid = 1 order by order_flag
   </select>
 
   <select id="selectAllRelateType" resultMap="relateItemType">
     select
     <include refid="Base_Column_List" />
-    from t_item_type
+    from t_item_type order by order_flag
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -46,10 +47,10 @@
   <insert id="insert" parameterType="com.decorate.model.ItemType" >
     insert into t_item_type (id, name, create_time, 
       update_time, invalid, operate_id, 
-      memo)
+      memo,order_flag)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{invalid,jdbcType=BIT}, #{operateId,jdbcType=BIGINT}, 
-      #{memo,jdbcType=VARCHAR})
+      #{memo,jdbcType=VARCHAR}),#{orderFlag,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.decorate.model.ItemType" >
     insert into t_item_type
@@ -75,6 +76,9 @@
       <if test="memo != null" >
         memo,
       </if>
+      <if test="orderFlag != null" >
+        order_flag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -97,6 +101,9 @@
       </if>
       <if test="memo != null" >
         #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFlag != null" >
+        #{orderFlag,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -121,6 +128,9 @@
       <if test="memo != null" >
         memo = #{memo,jdbcType=VARCHAR},
       </if>
+      <if test="orderFlag != null" >
+        order_flag = #{orderFlag,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -131,7 +141,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       invalid = #{invalid,jdbcType=BIT},
       operate_id = #{operateId,jdbcType=BIGINT},
-      memo = #{memo,jdbcType=VARCHAR}
+      memo = #{memo,jdbcType=VARCHAR},order_flag = #{orderFlag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
