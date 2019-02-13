@@ -94,7 +94,7 @@ Ext.define('Module.decorateProject.QueryPanel', {
                 var win = null;
                 win = new Module.decorateProject.AddOrEditWin({
                     width       :   300,
-                    height      :   300,
+                    height      :   400,
                     title       : '添加',
                     listeners   : {
                         saveclick   : function(thisCmp,btn){
@@ -130,7 +130,7 @@ Ext.define('Module.decorateProject.QueryPanel', {
                 };
                 var win = new Module.decorateProject.AddOrEditWin({
                     width       :   300,
-                    height      :   300,
+                    height      :   400,
                     title       : '修改',
                     listeners   : {
                         afterrender : function( thisCmp, eOpts ){

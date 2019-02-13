@@ -28,17 +28,21 @@ Ext.define('Module.budgetList.QueryPanel', {
             'itemUnit',
             'itemUnitPrice',
             'quantity',
-            'itemTotalPrice'
+            'itemTotalPrice',
+            'discountItemUnitPrice',
+            'discountItemTotalPrice'
         ];
     },
     buildColumns	: function() {
         return [
             {text : '排序',dataIndex : 'orderFlag',width:50},
             {text : '项目名称',dataIndex : 'itemName',width:150,cellWrap:true},
-            {text : '单位',dataIndex : 'itemUnit',width:150,cellWrap:true},
-            {text : '单价',dataIndex : 'itemUnitPrice',width:150,cellWrap:true},
-            {text : '数量',dataIndex : 'quantity',width:150,cellWrap:true},
-            {text : '合计',dataIndex : 'itemTotalPrice',width:150,cellWrap:true}
+            {text : '单位',dataIndex : 'itemUnit',width:100,cellWrap:true},
+            {text : '单价',dataIndex : 'itemUnitPrice',width:100,cellWrap:true},
+            {text : '数量',dataIndex : 'quantity',width:100,cellWrap:true},
+            {text : '合计',dataIndex : 'itemTotalPrice',width:100,cellWrap:true},
+            {text : '折扣单价',dataIndex : 'discountItemUnitPrice',width:100,cellWrap:true},
+            {text : '折扣后合计',dataIndex : 'discountItemTotalPrice',width:100,cellWrap:true},
         ];
     },
     buildTbar       : function(){
@@ -93,7 +97,7 @@ Ext.define('Module.budgetList.QueryPanel', {
                 var win = null;
                 win = new Module.budgetList.AddOrEditWin({
                     width       :   300,
-                    height      :   300,
+                    height      :   400,
                     title       : '添加',
                     listeners   : {
                         saveclick   : function(thisCmp,btn){
@@ -131,12 +135,12 @@ Ext.define('Module.budgetList.QueryPanel', {
                 };
                 var win = new Module.budgetList.AddOrEditWin({
                     width       :   300,
-                    height      :   300,
+                    height      :   400,
                     title       : '修改',
                     listeners   : {
                         afterrender : function( thisCmp, eOpts ){
                             var cfg = {
-                                url : SysConfig.ctx + '/budgetList/selectByPrimaryKey.do',
+                                url : SysConfig.ctx + '/budgetList/selectByPrimaryKeyWithItem.do',
                                 params  : params
                             };
 
@@ -190,6 +194,8 @@ Ext.define('Module.budgetList.QueryPanel', {
         this.setEditFormParamObj(roomPlaceId);
         Util.getCmp(this.addButtonId).setDisabled(false);
         Util.getCmp(this.refrushButtonId).setDisabled(false);
+        Util.getCmp(this.editButtonId).setDisabled(true);
+        Util.getCmp(this.deleteButtonId).setDisabled(true);
     },
     reset : function () {
         Util.getCmp(this.addButtonId).setDisabled(true);

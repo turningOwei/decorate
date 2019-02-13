@@ -30,15 +30,15 @@ Ext.define('Module.item.QueryPanel', {
     },
     buildColumns: function () {
         return [
-            {
-                text: '项目类型名称', dataIndex: 'itemType', width: 200, renderer: function (value, record) {
-                    return value.name;
-                }
-            },
-            {text: '项目名称', dataIndex: 'name', width: 200},
+            {text: '排序', dataIndex: 'orderFlag', width: 50},
+            {text: '项目名称', dataIndex: 'name', width: 200,cellWrap:true},
             {text: '单位', dataIndex: 'unit', width: 200},
             {text: '单价', dataIndex: 'unitPrice', width: 200},
-            {text: '排序', dataIndex: 'orderFlag', width: 50}
+            {
+                text: '所属项目分类', dataIndex: 'itemType', width: 200, renderer: function (value, record) {
+                    return value.name;
+                }
+            }
         ];
     },
     buildTbar: function () {

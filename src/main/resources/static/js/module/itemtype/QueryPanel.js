@@ -27,8 +27,8 @@ Ext.define('Module.itemtype.QueryPanel', {
     },
     buildColumns	: function() {
         return [
-            {text : '项目类型名称',dataIndex : 'name',width:200},
-            {text : '排序',dataIndex : 'orderFlag',width:50}
+            {text : '排序',dataIndex : 'orderFlag',width:50},
+            {text : '项目类型名称',dataIndex : 'name',width:200}
         ];
     },
     buildTbar       : function(){

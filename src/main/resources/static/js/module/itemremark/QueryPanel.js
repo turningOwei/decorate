@@ -31,11 +31,12 @@ Ext.define('Module.itemremark.QueryPanel', {
     },
     buildColumns	: function() {
         return [
-            {text : '项目类型名称',dataIndex : 'itemTypeName',width:150},
-            {text : '项目名称',dataIndex : 'itemName',width:150},
+            {text : '排序',dataIndex : 'orderFlag',width:50},
+            {text : '项目类型名称',dataIndex : 'itemTypeName',width:150,cellWrap:true},
+            {text : '项目名称',dataIndex : 'itemName',width:150,cellWrap:true},
             {text : '备注名称',dataIndex : 'name',width:150},
-            {text : '备注文本',dataIndex : 'text',width:400},
-            {text : '排序',dataIndex : 'orderFlag',width:50}
+            //{text: '备注',width:600, xtype:'templatecolumn', tpl:'{name}--{text}'},
+            {text : '备注文本',dataIndex : 'text',width:400,cellWrap:true}
         ];
     },
     buildTbar       : function(){
