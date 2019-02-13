@@ -6,6 +6,9 @@ import com.decorate.model.ItemRemark;
 import com.decorate.model.ItemRemarkPo;
 import com.decorate.service.ItemRemarkService;
 import com.decorate.service.ItemService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.global.ExtGrid;
 import com.global.ExtJsonForm;
 import com.global.PageParam;
@@ -30,25 +33,26 @@ import java.util.List;
 public class ItemRemarkController {
     @Resource
     private ItemRemarkService itemRemarkService;
-    private Gson gson = new GsonBuilder().create();
+    private ExtGrid getExtGrid(PageInfo<ItemRemark> pageInfo) {
+        return new ExtGrid(pageInfo.getList(), pageInfo.getTotal(), true);
+    }
     @RequestMapping("/itemRemark/selectAll.do")
     @ResponseBody
     public ExtGrid selectAll(PageParam<ItemRemarkPo> pageParam,
                              String itemTypeName,String itemName,String remarkName){
-        List<ItemRemarkPo> list = itemRemarkService
-                .selectAllJoinItemType(itemTypeName,itemName,remarkName);
-        pageParam.setList(list);
-        ExtGrid result = new ExtGrid(list, 10, true);
-        return result;
+        Page<ItemRemark> page = PageHelper.startPage(pageParam.getPage(),pageParam.getLimit())
+                .doSelectPage(()-> itemRemarkService
+                        .selectAllJoinItemType(itemTypeName,itemName,remarkName));
+        return getExtGrid(new PageInfo<>(page));
     }
 
     @RequestMapping("/itemRemark/selectByItemId.do")
     @ResponseBody
     public ExtGrid selectByItemId(PageParam<ItemRemark> pageParam,Long itemTypeId){
         Assert.notNull(itemTypeId,"项目类型id不能为空");
-        List<ItemRemark> list = itemRemarkService.selectByItemId(itemTypeId);
-        pageParam.setList(list);
-        return new ExtGrid(list,10,true);
+        Page<ItemRemark> page = PageHelper.startPage(pageParam.getPage(),pageParam.getLimit())
+                .doSelectPage(()-> itemRemarkService.selectByItemId(itemTypeId));
+        return getExtGrid(new PageInfo<>(page));
     }
 
     @RequestMapping("/itemRemark/save.do")

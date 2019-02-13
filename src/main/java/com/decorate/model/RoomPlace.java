@@ -1,33 +1,19 @@
 package com.decorate.model;
 
-public class RoomPlace {
-    private Long id;
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * @author turningOwei
+ */
+@Data
+public class RoomPlace extends BaseEntity implements Serializable {
 
     private Long projectId;
 
     private String roomPlaceName;
 
-    public Long getId() {
-        return id;
-    }
+    private Integer orderFlag;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
-
-    public String getRoomPlaceName() {
-        return roomPlaceName;
-    }
-
-    public void setRoomPlaceName(String roomPlaceName) {
-        this.roomPlaceName = roomPlaceName == null ? null : roomPlaceName.trim();
-    }
 }

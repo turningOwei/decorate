@@ -1,8 +1,12 @@
 package com.decorate.controller;
 
 import com.decorate.exception.ServiceException;
+import com.decorate.model.ItemRemark;
 import com.decorate.model.ItemType;
 import com.decorate.service.ItemTypeService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.global.ExtGrid;
 import com.global.ExtJsonForm;
 import com.global.PageParam;
@@ -29,12 +33,15 @@ public class ItemTypeController {
     @Resource
     private ItemTypeService itemTypeService;
 
+    private ExtGrid getExtGrid(PageInfo<ItemType> pageInfo) {
+        return new ExtGrid(pageInfo.getList(), pageInfo.getTotal(), true);
+    }
     @RequestMapping("/itemType/selectAll.do")
     @ResponseBody
     public ExtGrid selectAll(PageParam<ItemType> pageParam){
-        List<ItemType> list = itemTypeService.selectAll();
-        pageParam.setList(list);
-        return new ExtGrid(list,10,true);
+        Page<ItemType> page = PageHelper.startPage(pageParam.getPage(),pageParam.getLimit())
+                .doSelectPage(()-> itemTypeService.selectAll());
+        return getExtGrid(new PageInfo<>(page));
     }
 
     @RequestMapping("/itemType/save.do")

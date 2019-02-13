@@ -35,4 +35,9 @@ public class ItemTypeServiceImpl implements ItemTypeService {
     public ItemType selectByPrimaryKey(Long id){
         return mapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public void deleteByPrimaryKey(Long id) {
+        mapper.deleteByPrimaryKey(id);
+    }
 }

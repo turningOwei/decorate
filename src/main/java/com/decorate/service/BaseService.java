@@ -34,4 +34,6 @@ public interface BaseService<T extends BaseEntity> {
      * @date: 2018/12/24 9:30
      */
     T selectByPrimaryKey(Long id);
+
+    void deleteByPrimaryKey(Long id);
 }

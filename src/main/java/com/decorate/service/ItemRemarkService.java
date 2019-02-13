@@ -24,4 +24,6 @@ public interface ItemRemarkService extends BaseService<ItemRemark>{
      */
     List<ItemRemarkPo> selectAllJoinItemType(String itemTypeName,String itemName,String name);
 
+    ItemRemarkPo selectRelatedByPrimaryKey(Long id);
+
 }

@@ -1,17 +1,14 @@
 package com.decorate.mapper;
 
 import com.decorate.model.RoomPlace;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
-public interface RoomPlaceMapper {
-    int deleteByPrimaryKey(Long id);
+import java.util.List;
 
-    int insert(RoomPlace record);
-
-    int insertSelective(RoomPlace record);
-
-    RoomPlace selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(RoomPlace record);
-
-    int updateByPrimaryKey(RoomPlace record);
+@Mapper
+@Component
+public interface RoomPlaceMapper extends DecorateMapper<RoomPlace>{
+    RoomPlace selectByRoomPlaceName(String roomPlaceName);
+    List<RoomPlace> selectByProjectId(Long projectId);
 }

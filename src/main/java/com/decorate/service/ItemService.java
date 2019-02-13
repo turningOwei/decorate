@@ -2,6 +2,7 @@ package com.decorate.service;
 
 import com.decorate.exception.ServiceException;
 import com.decorate.model.Item;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ import java.util.List;
  */
 public interface ItemService extends BaseService<Item>{
     List<Item> selectByItemTypeId(Long itemTypeId);
+    List<Item> selectAllByItemTypeId(Long itemTypeId);
+
 }

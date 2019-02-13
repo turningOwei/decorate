@@ -33,6 +33,16 @@ public class ItemRemarkServiceImpl implements ItemRemarkService {
         return itemRemarkMapper.selectAllJoinItemType(itemTypeName);
     }
 
+    @Override
+    public ItemRemarkPo selectRelatedByPrimaryKey(Long id) {
+        return itemRemarkMapper.selectRelatedByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteByPrimaryKey(Long id) {
+        itemRemarkMapper.deleteByPrimaryKey(id);
+    }
+
 
     @Override
     public void saveOrUpdate(ItemRemark entity) throws ServiceException {

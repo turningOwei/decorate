@@ -2,6 +2,7 @@ package com.decorate.mapper;
 
 import com.decorate.model.BaseEntity;
 import com.decorate.model.Item;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 

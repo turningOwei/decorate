@@ -17,4 +17,5 @@ public interface ItemTypeService extends BaseService<ItemType>{
     List<ItemType> selectAll();
     @Override
     ItemType selectByPrimaryKey(Long id);
+
 }

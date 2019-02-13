@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 描述:
@@ -33,8 +34,17 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> selectByItemTypeId(Long itemTypeId) {
-        List<Item> list = itemMapper.selectByTypeId(itemTypeId);
         return itemMapper.selectByTypeId(itemTypeId);
+    }
+
+    @Override
+    public List<Item> selectAllByItemTypeId(Long itemTypeId) {
+        return itemMapper.selectAllByItemTypeId(itemTypeId);
+    }
+
+    @Override
+    public void deleteByPrimaryKey(Long id) {
+        itemMapper.deleteByPrimaryKey(id);
     }
 
     @Override
