@@ -159,7 +159,7 @@ Ext.define('ExtUx.form.CusForm', {
 				field.displayTplData = json;
 				field.setRawValue(field.getDisplayValue());
 				//方便设置参数
-				thiz.fireEvent('setRawValueEvent',field,name,data[name]);
+				thiz.fireEvent('setRawValueEvent',field,name,data[name],data);
 			}
 		});
 
