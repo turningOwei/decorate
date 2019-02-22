@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.decorate.mapper.RoomPlaceMapper">
+    <resultMap id="BaseResultMap" type="com.decorate.model.RoomPlace">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="room_place_name" property="roomPlaceName" jdbcType="VARCHAR"/>
+        <result column="order_flag" property="orderFlag" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, room_place_name, order_flag
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from room_place
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectByRoomPlaceName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from room_place
+        where room_place_name = #{roomPlace,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from room_place order by order_flag
+    </select>
+    <select id="selectByProjectId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        rp.*
+        from room_place rp join project_relate_room prr on rp.id= prr.room_id
+        where prr.project_id = #{projectId,jdbcType=BIGINT}
+        order by rp.order_flag
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from room_place
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.decorate.model.RoomPlace">
+    insert into room_place (id, room_place_name,
+      order_flag)
+    values (#{id,jdbcType=BIGINT}, #{roomPlaceName,jdbcType=VARCHAR},
+      #{orderFlag,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.decorate.model.RoomPlace">
+        insert into room_place
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roomPlaceName != null">
+                room_place_name,
+            </if>
+            <if test="orderFlag != null">
+                order_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="roomPlaceName != null">
+                #{roomPlaceName,jdbcType=VARCHAR},
+            </if>
+            <if test="orderFlag != null">
+                #{orderFlag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.decorate.model.RoomPlace">
+        update room_place
+        <set>
+            <if test="roomPlaceName != null">
+                room_place_name = #{roomPlaceName,jdbcType=VARCHAR},
+            </if>
+            <if test="orderFlag != null">
+                order_flag = #{orderFlag,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.decorate.model.RoomPlace">
+    update room_place
+    set room_place_name = #{roomPlaceName,jdbcType=VARCHAR},
+      order_flag = #{orderFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

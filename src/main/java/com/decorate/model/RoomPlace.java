@@ -10,8 +10,6 @@ import java.io.Serializable;
 @Data
 public class RoomPlace extends BaseEntity implements Serializable {
 
-    private Long projectId;
-
     private String roomPlaceName;
 
     private Integer orderFlag;

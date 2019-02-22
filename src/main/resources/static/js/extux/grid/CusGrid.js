@@ -20,7 +20,7 @@ Ext.define('ExtUx.grid.CusGrid', {
 				store       : store,
 				tbar		: tbar,
 				dockedItems : dockedItems,
-				columns  	: [{xtype: 'rownumberer'}].concat(columns)
+				columns  	: [{xtype: 'rownumberer',width:'30',hidden:true}].concat(columns)
 			});
 
 			if (this.isQueryPage == true) {

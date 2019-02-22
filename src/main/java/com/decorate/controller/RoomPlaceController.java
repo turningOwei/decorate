@@ -1,8 +1,8 @@
 package com.decorate.controller;
 
 import com.decorate.exception.ServiceException;
-import com.decorate.model.ItemType;
 import com.decorate.model.RoomPlace;
+import com.decorate.model.vo.RoomPlaceValidateAddVo;
 import com.decorate.service.RoomPlaceService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -35,9 +35,10 @@ public class RoomPlaceController {
 
     @RequestMapping("/roomPlace/save.do")
     @ResponseBody
-    public ExtJsonForm save(RoomPlace entity){
+    public ExtJsonForm save(RoomPlace entity,Long projectId,boolean customizeFlag){
         try {
-            roomPlaceService.saveOrUpdate(entity);
+            //roomPlaceService.saveOrUpdate(entity);
+            roomPlaceService.saveByCustomizeFlag(entity,projectId,customizeFlag);
         } catch (ServiceException e) {
             e.printStackTrace();
             return new ExtJsonForm(false,"添加失败,请联系管理员!");
@@ -47,7 +48,7 @@ public class RoomPlaceController {
 
     @RequestMapping("/roomPlace/update.do")
     @ResponseBody
-    public ExtJsonForm update(RoomPlace entity){
+    public ExtJsonForm update(RoomPlace entity,Long projectId){
         try {
             roomPlaceService.saveOrUpdate(entity);
         } catch (ServiceException e) {
@@ -88,5 +89,12 @@ public class RoomPlaceController {
         Page<RoomPlace> page = PageHelper.startPage(pageParam.getPage(),pageParam.getLimit())
                 .doSelectPage(()-> roomPlaceService.selectByProjectId(projectId));
         return getExtGrid(new PageInfo<>(page));
+    }
+
+    @RequestMapping("/roomPlace/validAdd.do")
+    @ResponseBody
+    public RoomPlaceValidateAddVo validAdd(String customizeRoomPlaceName){
+        RoomPlaceValidateAddVo vo =roomPlaceService.validAdd(customizeRoomPlaceName);
+        return vo;
     }
 }

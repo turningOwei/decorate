@@ -59,11 +59,11 @@
     insert into t_item (id, item_type_id, name, 
       unit, unit_price, remark, 
       create_time, update_time, invalid, 
-      operate_id, memo)
+      operate_id, memo,order_flag)
     values (#{id,jdbcType=BIGINT}, #{itemTypeId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{unit,jdbcType=VARCHAR}, #{unitPrice,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{invalid,jdbcType=BIT}, 
-      #{operateId,jdbcType=BIGINT}, #{memo,jdbcType=VARCHAR}), #{orderFlag,jdbcType=INTEGER})
+      #{operateId,jdbcType=BIGINT}, #{memo,jdbcType=VARCHAR}, #{orderFlag,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.decorate.model.Item" >
     insert into t_item

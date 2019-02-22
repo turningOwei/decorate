@@ -5,6 +5,8 @@ server:
  # servlet: 好像没什么用,配置后请求路径正确却无法访问
  #   #修改默认映射路径
  #   path: **.do
+  servlet:
+    context-path: /
 
 spring:
   mvc:
@@ -16,12 +18,13 @@ spring:
     #static-path-pattern: /**
  #resources:
  #  static-locations: classpath:/static/**
+  #172.17.0.1
   datasource:
       url: jdbc:mysql://localhost:3306/decorate?characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&autoReconnect=true&useSSL=false
       username: root
       password: root
       #com.mysql.jdbc.Driver
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
       platform: mysql
       type: com.alibaba.druid.pool.DruidDataSource
       druid:
@@ -51,10 +54,16 @@ mybatis:
     #log-prefix: decorate
 #pagehelperab
 pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
+  helperDialect: com.github.pagehelper.dialect.helper.MySqlDialect
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  #设置dialect分页无效,应该设置helperDialect
+  #dialect: com.github.pagehelper.dialect.helper.MySqlDialect
+  page-size-zero: true
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  #dialect-alias: com.github.pagehelper.dialect.helper.MySqlDialect
 logging:
   level:
     com.decorate.mapper : debug

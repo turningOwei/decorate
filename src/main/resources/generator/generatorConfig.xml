@@ -38,7 +38,7 @@
         <table tableName="t_construction_type" domainObjectName="ConstructionType"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="sys_resource" domainObjectName="SysResource"
+        <table tableName="tag_relate_member" domainObjectName="TagRelateMember"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
